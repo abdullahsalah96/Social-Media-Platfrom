@@ -50,7 +50,6 @@ function PostsCards(props){
                                 </div>
                                 <div className="post-comments-container">
                                     {
-                                    post.comments.length == 0 ? <div className="no-comments"><p/></div>:
                                     post.comments.map((comment,i) => {
                                         return (
                                             <div class="post-comment">
