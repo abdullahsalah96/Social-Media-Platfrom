@@ -1,0 +1,20 @@
+.items-container p {
+  font-size: 24px;
+  font-weight: lighter;
+  font-family: 'Titillium Web', sans-serif;
+  color: rgb(70, 70, 70);
+}
+
+.items-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.logo-container {
+  display: flex;
+  margin-top: 0;
+  width: 40px;
+  height: 40px;
+  justify-content: center;
+}
