@@ -5,3 +5,15 @@
   align-items: center;
   flex-direction: column;
 }
+
+.btn-primary {
+  background-color: #a3d4f7 !important;
+  border-color: #a3d4f7 !important;
+  color: rgb(47, 47, 47);
+}
+
+.btn-primary:hover,
+.btn-primary:active,
+.btn-primary:visited {
+  background-color: #c1e5ff !important;
+}

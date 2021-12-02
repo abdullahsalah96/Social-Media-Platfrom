@@ -24,7 +24,7 @@ function CreatePostCard() {
                         <label for="contentLabel">Content</label>
                         <textarea class="form-control" rows="3" placeholder="What's up?" required></textarea>
                     </div>
-                    <button type="submit" class="btn btn-primary">Submit</button>
+                    <button type="submit" onClick="window.location.reload();" class="btn btn-primary">Submit</button>
                 </form>
             </div>
         </div>

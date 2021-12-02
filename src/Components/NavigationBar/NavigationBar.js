@@ -1,4 +1,4 @@
-import cloudImage from "../../assets/images/cloud-grey.png";
+import cloudImage from "../../assets/images/cloud.png";
 import {Navbar} from "react-bootstrap";
 
 import "./NavigationBar.css"
