@@ -1,6 +1,7 @@
 import './App.css';
 import NavigationBar from './Components/NavigationBar/NavigationBar';
 import PostCard from "./Components/PostCard/PostCard"
+import CreatePostCard from "./Components/CreatePostCard/CreatePostCard"
 import React, {useState} from 'react';
 
 function App() {
@@ -10,7 +11,8 @@ function App() {
   return (
     <div className="App">
       <NavigationBar></NavigationBar>
-      <div className="posts-container">
+      <div className="views-container">
+        <CreatePostCard></CreatePostCard>
         <PostCard username = {username} title = {title} content = {content}></PostCard>
         <PostCard username = {username} title = {title} content = {content}></PostCard>
       </div>

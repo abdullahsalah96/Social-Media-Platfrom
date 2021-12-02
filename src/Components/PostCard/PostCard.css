@@ -1,6 +1,6 @@
 .PostCard {
   width: 700px;
-  height: 500px;
+  height: 600px;
   background-color: whitesmoke;
   font-family: 'Titillium Web', sans-serif;
   border-radius: 10px;
@@ -8,11 +8,12 @@
   margin-top: 20px;
   margin-bottom: 10px;
 }
+
 .upper-container {
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
   height: 120px;
   background: linear-gradient(to left, #e1eec3, #f05053);
-  box-shadow: 0px 1px 1px 1px rgb(160, 160, 160);
-
   text-align: center;
 }
 
@@ -29,14 +30,12 @@
 }
 
 .image-container {
-  display: flex;
   background-color: white;
   width: 100px;
   height: 100px;
   border-radius: 50%;
   padding: 5px;
   transform: translate(290px, 60px);
-  justify-content: center;
 }
 
 .image-container img {
@@ -74,12 +73,11 @@
 }
 
 .comment-container {
-  margin-top: 10px;
-  margin-right: 5px;
-  margin-left: 15px;
-  margin-bottom: 10px;
-  justify-content: left;
-  padding: 5px;
+  margin-top: 20px;
+  margin-left: 20px;
+  margin-right: 20px;
+  display: flexbox;
+  justify-content: center;
 }
 
 .form-group {

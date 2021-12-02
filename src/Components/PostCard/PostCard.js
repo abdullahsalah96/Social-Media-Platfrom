@@ -26,11 +26,12 @@ function PostCard(props) {
                 <p>{props.content}</p>
             </div>
             <div className="comment-container">
-                <form class="form-inline">
+                <form>
                     <div class="form-group">
-                        <textarea class="form-control" rows="3" cols="43" placeholder="What's up?" required></textarea>
+                        <label for="commentLabel">Post comment</label>
+                        <textarea class="form-control" rows="3" placeholder="What's up?" required></textarea>
                     </div>
-                    <button type="submit" class="btn btn-dark">Post comment</button>
+                    <button type="submit" class="btn btn-dark">Post Comment</button>
                 </form>
             </div>
         </div>
