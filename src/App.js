@@ -14,11 +14,12 @@ function App() {
   posts.push(dummyPost2);
   return (
     <div className="App">
-      <NavigationBar></NavigationBar>
-      <div className="views-container">
+      <h1>HELLO WORLD</h1>
+      {/* <NavigationBar></NavigationBar> */}
+      {/* <div className="views-container"> */}
         {/* <CreatePostCard></CreatePostCard> */}
         {/* <PostsCards posts = {posts}></PostsCards> */}
-      </div>
+      {/* </div> */}
     </div>
   );
 }
