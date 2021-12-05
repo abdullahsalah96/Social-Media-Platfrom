@@ -53,7 +53,7 @@ function PostCard(props) {
                                 <div className="post-comment" key={j}>
                                     <img src="https://bootdey.com/img/Content/avatar/avatar1.png" alt="" className="profile-photo-sm"/>
                                     <div className="post-comment-text">
-                                        <p><a href="/" className="profile-link">@{comment.username} </a>{comment.text}</p>
+                                        <p><a href="/" className="profile-link">@{comment.username} </a>{comment.content}</p>
                                     </div>
                                 </div>
                             )
