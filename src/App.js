@@ -2,7 +2,7 @@ import './App.css';
 import NavigationBar from './Components/NavigationBar/NavigationBar';
 import PostsCards from "./Components/PostsCards/PostsCards"
 import CreatePostCard from "./Components/CreatePostCard/CreatePostCard"
-const Post = require("./Model/Post");
+import Post from "./Model/Post"
 
 function App() {
   let posts = [];
@@ -14,12 +14,11 @@ function App() {
   posts.push(dummyPost2);
   return (
     <div className="App">
-      <h1>HELLO WORLD</h1>
-      {/* <NavigationBar></NavigationBar> */}
-      {/* <div className="views-container"> */}
-        {/* <CreatePostCard></CreatePostCard> */}
-        {/* <PostsCards posts = {posts}></PostsCards> */}
-      {/* </div> */}
+      <NavigationBar></NavigationBar>
+      <div className="views-container">
+        <CreatePostCard></CreatePostCard>
+        <PostsCards posts = {posts}></PostsCards>
+      </div>
     </div>
   );
 }
