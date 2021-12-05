@@ -76,7 +76,6 @@ const SectionSplitter = ({ color }) => (
 );
 
 function handleSubmittingComment(post) {
-    console.log(post)
     const usernameField = $('#usernameField').val();
     const commentField = $('#commentField').val();
     // handle updating post object and making PUT network call

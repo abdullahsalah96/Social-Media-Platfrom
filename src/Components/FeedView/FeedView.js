@@ -15,9 +15,27 @@ class FeedView extends Component {
         this.state.posts = [dummyPost];
     }
 
+    componentDidMount() {
+        fetch('https://worker.abdallaelshikh961661.workers.dev/')
+        .then(async response => {
+            const data = await response.json();
+            console.log(data);
+            // check for error response
+            if (!response.ok) {
+                // get error message from body or default to response statusText
+                const error = (data && data.message) || response.statusText;
+                return Promise.reject(error);
+            }
+            this.setState({ posts: data})
+        })
+        .catch(error => {
+            this.setState({ errorMessage: error.toString() });
+            console.error('There was an error!', error);
+        });
+    }
+
     render() {
         const { posts } = this.state;
-        console.log(posts);
         return (
             <div className="post-cards-container">
                 { posts.map((post,i) => {
