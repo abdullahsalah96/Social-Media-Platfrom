@@ -1,15 +1,59 @@
 import React, { Component } from 'react';
+import { Alert } from 'react-alert';
 import "./CreatePostCard.css";
 
 class CreatePostCard extends Component{
 
-    handleSubmittingPost(event) {
-        console.log("Submit button clicked \n");
-        event.preventDefault()
+    constructor() {
+        super();
+        this.handleSubmittingPost = this.handleSubmittingPost.bind(this);
+    }
+
+    async makePostRequest(username, title, content) {
+        console.log("title " + title + "\n");
+        console.log("username " + username + "\n");
+        console.log("content " + content + "\n");
+        var d = new Date();
+        const date = d.toISOString().substring(0, 10); 
+        const postData = {
+            "username": username,
+            "title": title,
+            "content": content,
+            "date": date,
+            "comments": [], 
+            "score": 0
+          };
+    
+        try {
+        const res = await fetch("https://worker.abdallaelshikh961661.workers.dev", {
+            mode: "no-cors",
+            method: "post",
+            headers: {
+                "Content-Type": "application/json",
+                "x-access-token": "token-value",
+            },
+            body: JSON.stringify(postData),
+        });
+        } catch (err) {
+            throw new Error(err.message);
+        }
+    }
+
+    async handleSubmittingPost(event) {
+        event.preventDefault();
         const username = event.target[0].value
         const title = event.target[1].value
         const content = event.target[2].value
         // Handle network request
+        try{
+            await this.makePostRequest(username, title, content);
+        } catch(err) {
+            // show error
+            alert("Error: " + err.message);
+        }
+        // show that post is submitted successfully
+        alert("Success - Your post is now online, refresh page to see it!");
+        // alert("Success - Your post is now online!")
     }
 
     render() {
@@ -43,4 +87,4 @@ class CreatePostCard extends Component{
     }
 }
 
-export default CreatePostCard
+export default CreatePostCard;

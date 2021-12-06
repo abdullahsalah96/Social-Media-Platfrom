@@ -4,6 +4,7 @@
   justify-content: center;
   align-items: center;
   flex-direction: column;
+  font-family: 'Titillium Web', sans-serif;
 }
 
 .btn-primary {
@@ -16,4 +17,9 @@
 .btn-primary:active,
 .btn-primary:visited {
   background-color: #c1e5ff !important;
+}
+
+.views-container p {
+  font-size: 9;
+  font-weight: lighter;
 }

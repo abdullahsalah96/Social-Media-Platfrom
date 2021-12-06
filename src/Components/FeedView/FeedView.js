@@ -1,25 +1,35 @@
 import "./FeedView.css";
 import PostCard from "../PostCard/PostCard"
-import Post from "../../Model/Post"
 import { render } from "@testing-library/react";
-import { Component, useState } from "react";
+import { Component } from "react";
 
 
 class FeedView extends Component {
-    state = { posts:[] };
+    state = { posts:[], sortBy:"date" };
+    
     constructor() {
         super();
-        var d = new Date();
-        const date = d.toISOString().substring(0, 10);
-        const dummyPost = new Post("username", "Random title for post", "Random content for post Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore", date, [{username:"dummyusername", text: "I am commenting a dummy comment to see if it's working Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor"}], 0, "");
-        this.state.posts = [dummyPost];
+        this.comparePosts = this.comparePosts.bind(this);
+        this.onSortByDateSelected = this.onSortByDateSelected.bind(this);
+        this.onSortByScoreSelected = this.onSortByScoreSelected.bind(this);
+    }
+
+    onSortByDateSelected() {
+        this.setState({
+            sortBy: "date"
+        });
+    }
+
+    onSortByScoreSelected() {
+        this.setState({
+            sortBy: "score"
+        });
     }
 
     componentDidMount() {
         fetch('https://worker.abdallaelshikh961661.workers.dev/')
         .then(async response => {
             const data = await response.json();
-            console.log(data);
             // check for error response
             if (!response.ok) {
                 // get error message from body or default to response statusText
@@ -34,15 +44,52 @@ class FeedView extends Component {
         });
     }
 
+    comparePosts(a, b) {
+        const { sortBy } = this.state;
+        var comparableA;
+        var comparableB;
+        console.log(sortBy);
+        if (sortBy === "date") {
+            comparableA = Date.parse(a.date)
+            comparableB = Date.parse(b.date);
+        } else if (sortBy === "score") {
+            comparableA = parseInt(a.score);
+            comparableB = parseInt(b.score);
+        }
+        if ( comparableA > comparableB ){
+          return -1;
+        }
+        if ( comparableA < comparableB ){
+          return 1;
+        }
+        return 0;
+      }
+
     render() {
         const { posts } = this.state;
         return (
-            <div className="post-cards-container">
-                { posts.map((post,i) => {
-                    return (
-                        <PostCard post = {post} objectId = {i}></PostCard>
-                    )
-                })}
+            <div className = "feedview-container">
+                <div className="sortion-container">
+                    <div className="form-check">
+                        <input className="form-check-input" type="radio" name="flexRadioDefault" checked={this.state.sortBy == "date"} onChange={this.onSortByDateSelected}/>
+                        <label className="form-check-label" htmlFor="flexRadioDefault2">
+                            Sort by date
+                        </label>
+                    </div>
+                    <div className="form-check">
+                        <input className="form-check-input" type="radio" name="flexRadioDefault" checked={this.state.sortBy == "score"} onChange={this.onSortByScoreSelected}/>
+                        <label className="form-check-label" htmlFor="flexRadioDefault1">
+                            Sort by score
+                        </label>
+                    </div>
+                </div>
+                <div className="post-cards-container">
+                    { posts.sort(this.comparePosts).map((post,i) => {
+                        return (
+                            <PostCard post = {post} objectId = {i}></PostCard>
+                        )
+                    })}
+            </div>
             </div>
         )
     }
