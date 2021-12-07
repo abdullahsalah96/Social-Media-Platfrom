@@ -10,9 +10,7 @@ class CreatePostCard extends Component{
     }
 
     async makePostRequest(username, title, content) {
-        console.log("title " + title + "\n");
-        console.log("username " + username + "\n");
-        console.log("content " + content + "\n");
+
         var d = new Date();
         const date = d.toISOString().substring(0, 10); 
         const postData = {
@@ -30,7 +28,6 @@ class CreatePostCard extends Component{
             method: "post",
             headers: {
                 "Content-Type": "application/json",
-                "x-access-token": "token-value",
             },
             body: JSON.stringify(postData),
         });

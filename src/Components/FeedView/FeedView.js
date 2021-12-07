@@ -48,7 +48,6 @@ class FeedView extends Component {
         const { sortBy } = this.state;
         var comparableA;
         var comparableB;
-        console.log(sortBy);
         if (sortBy === "date") {
             comparableA = Date.parse(a.date)
             comparableB = Date.parse(b.date);

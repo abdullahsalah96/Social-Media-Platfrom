@@ -6,7 +6,7 @@ import { Component } from "react";
 class PostCard extends Component {
 
     constructor(props) {
-        super();
+        super(props);
         this.state = { post:props.post, id: props.objectId};
         this.handleSubmittingComment = this.handleSubmittingComment.bind(this);
     }
@@ -15,38 +15,29 @@ class PostCard extends Component {
         event.preventDefault()
         let currentPost = this.state.post;
         const comment = {
-            username: event.target[0].value,
-            content: event.target[2].value
+            username: event.target[1].value,
+            content: event.target[0].value
         }
         currentPost.comments.push(comment);
         // Handle network request
         try{
-            await this.makePutRequest(currentPost);
+            await this.makePostRequest(currentPost);
             // successful then update state
             this.setState({ post: currentPost});
         } catch(err) {
             // show error
             alert("Error: " + err.message);
         }
-        // // show that post is submitted successfully
-        // alert("Success - Your post is now online, refresh page to see it!");
-        // // alert("Success - Your post is now online!")
     }
 
-    async makePutRequest(post, content) {
-        console.log(post);
-        var d = new Date();
-        const date = d.toISOString().substring(0, 10); 
+    async makePostRequest(post) {
         const postData = post;
         try {
         const res = await fetch("https://worker.abdallaelshikh961661.workers.dev", {
-            method: "put",
+            mode: "no-cors",
+            method: "post",
             headers: {
-                "Access-Control-Allow-Origin": "*",
-                "Access-Control-Allow-Methods": "GET,HEAD,POST,OPTIONS, PUT",
-                "Access-Control-Max-Age": "86400",
                 "Content-Type": "application/json",
-                "x-access-token": "token-value",
             },
             body: JSON.stringify(postData),
         });
@@ -56,9 +47,9 @@ class PostCard extends Component {
     }
 
     render() {
-        const {post, objectId} = this.state;
+        const {post, id} = this.state;
         return (
-            <div className = "PostsCards" key={objectId}>
+            <div className = "PostsCards" key={id}>
                 <div className="upper-container">
                     <div className="image-container">
                         <img src={avatar} height = "90px" width = "90px"/>
