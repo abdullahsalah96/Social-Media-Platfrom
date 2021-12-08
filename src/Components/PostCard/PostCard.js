@@ -133,7 +133,7 @@ class PostCard extends Component {
                     </div>
                     <div className ="voting-container">
                         <button className="btn"><i className={likeButtonState} onClick={this.handleLikingPost}></i></button>
-                        <label>{post.score}</label>
+                        <label>{post.score.toString()}</label>
                         <button className="btn"><i className={dislikeButtonState} onClick={this.handleDislikingPost}></i></button>
                     </div>
                 </div>
