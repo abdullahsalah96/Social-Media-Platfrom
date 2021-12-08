@@ -76,10 +76,6 @@ class PostCard extends Component {
             this.setState({ dislikeButtonState: this.dislikeButtonNotPressedState});
         }else if (currentState === this.dislikeButtonNotPressedState){
             // dislike post
-            // check if score is already 0 return
-            if (this.state.post.score === 0) {
-                return
-            }
             this.updatePostScore(this.state.post.score - 1)
             this.setState({ dislikeButtonState: this.dislikeButtonPressedState});
         }
