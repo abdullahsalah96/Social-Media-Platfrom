@@ -5,12 +5,17 @@ import SectionSplitter from "../SectionSplitter"
 
 class PostCard extends Component {
 
+    likeButtonPressedState = "fa fa-thumbs-up fa-2x text-primary"
+    likeButtonNotPressedState = "fa fa-thumbs-up fa-2x"
+    dislikeButtonPressedState = "fa fa-thumbs-down fa-2x text-primary"
+    dislikeButtonNotPressedState = "fa fa-thumbs-down fa-2x"
     constructor(props) {
         super(props);
-        this.state = { post:props.post, id: props.objectId};
+        this.state = { post:props.post, id: props.objectId, likeButtonState: "fa fa-thumbs-up fa-2x", dislikeButtonState: "fa fa-thumbs-down fa-2x"};
         this.handleSubmittingComment = this.handleSubmittingComment.bind(this);
-        this.handleUpvoting = this.handleUpvoting.bind(this);
-        this.handleDownvoting = this.handleDownvoting.bind(this);
+        this.handleLikingPost = this.handleLikingPost.bind(this);
+        this.handleDislikingPost = this.handleDislikingPost.bind(this);
+        this.updatePostScore = this.updatePostScore.bind(this);
     }
 
     componentWillReceiveProps(nextProps) {
@@ -39,22 +44,50 @@ class PostCard extends Component {
         }
     }
 
-    async handleUpvoting() {
-        let currentPost = this.state.post;
-        currentPost.score += 1
-        try{
-            await this.makePostRequest(currentPost);
-            // successful then update state
-            this.setState({ post: currentPost});
-        } catch(err) {
-            // show error
-            alert("Error: " + err.message);
+    async handleLikingPost() {
+        // check if already disliked return
+        if (this.state.dislikeButtonState == this.dislikeButtonPressedState) {
+            // remove dislike
+            this.handleDislikingPost();
+            return
+        }
+        const currentState = this.state.likeButtonState;
+        if (currentState == this.likeButtonPressedState) {
+            // button already pressed so remove like
+            this.updatePostScore(this.state.post.score - 1)
+            this.setState({ likeButtonState: this.likeButtonNotPressedState});
+        }else if (currentState == this.likeButtonNotPressedState){
+            // like post
+            this.updatePostScore(this.state.post.score + 1)
+            this.setState({ likeButtonState: this.likeButtonPressedState});
         }
     }
 
-    async handleDownvoting() {
+    async handleDislikingPost() {
+        if (this.state.likeButtonState == this.likeButtonPressedState) {
+            // remove like
+            this.handleLikingPost();
+            return
+        }
+        const currentState = this.state.dislikeButtonState;
+        if (currentState == this.dislikeButtonPressedState) {
+            // button already pressed so remove dislike
+            this.updatePostScore(this.state.post.score + 1)
+            this.setState({ dislikeButtonState: this.dislikeButtonNotPressedState});
+        }else if (currentState == this.dislikeButtonNotPressedState){
+            // dislike post
+            // check if score is already 0 return
+            if (this.state.post.score == 0) {
+                return
+            }
+            this.updatePostScore(this.state.post.score - 1)
+            this.setState({ dislikeButtonState: this.dislikeButtonPressedState});
+        }
+    }
+
+    async updatePostScore(newScore) {
         let currentPost = this.state.post;
-        currentPost.score -= 1
+        currentPost.score = newScore;
         try{
             await this.makePostRequest(currentPost);
             // successful then update state
@@ -82,7 +115,7 @@ class PostCard extends Component {
     }
 
     render() {
-        const {post, id} = this.state;
+        const {post, id, likeButtonState, dislikeButtonState} = this.state;
         return (
             <div className = "PostsCards" key={id}>
                 <div className="upper-container">
@@ -99,9 +132,9 @@ class PostCard extends Component {
                         <p>{post.date}</p>
                     </div>
                     <div className ="voting-container">
-                        <button className="btn"><i className="fa fa-arrow-up fa-2x text-success" onClick={this.handleUpvoting}></i></button>
+                        <button className="btn"><i className={likeButtonState} onClick={this.handleLikingPost}></i></button>
                         <label>{post.score}</label>
-                        <button className="btn"><i className="fa fa-arrow-down fa-2x text-danger" onClick={this.handleDownvoting}></i></button>
+                        <button className="btn"><i className={dislikeButtonState} onClick={this.handleDislikingPost}></i></button>
                     </div>
                 </div>
                 <div className = "content-container">
