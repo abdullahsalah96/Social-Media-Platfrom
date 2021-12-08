@@ -21,7 +21,7 @@ class PostCard extends Component {
     componentWillReceiveProps(nextProps) {
         // To update the card when sorting is changed
         if (nextProps.post !== this.state.post) {
-          this.setState({ post: nextProps.post });
+            this.setState({ post: nextProps.post, likeButtonState: "fa fa-thumbs-up fa-2x", dislikeButtonState: "fa fa-thumbs-down fa-2x" });
         }
       }
 
