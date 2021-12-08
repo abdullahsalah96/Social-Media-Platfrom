@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { Alert } from 'react-alert';
 import "./CreatePostCard.css";
 
 class CreatePostCard extends Component{
@@ -23,14 +22,14 @@ class CreatePostCard extends Component{
           };
     
         try {
-        const res = await fetch("https://worker.abdallaelshikh961661.workers.dev", {
-            mode: "no-cors",
-            method: "post",
-            headers: {
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify(postData),
-        });
+            await fetch("https://worker.abdallaelshikh961661.workers.dev", {
+                mode: "no-cors",
+                method: "post",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify(postData),
+            });
         } catch (err) {
             throw new Error(err.message);
         }
@@ -50,7 +49,6 @@ class CreatePostCard extends Component{
         }
         // show that post is submitted successfully
         alert("Success - Your post is now online, refresh page to see it!");
-        // alert("Success - Your post is now online!")
     }
 
     render() {

@@ -1,6 +1,5 @@
 import "./PostCard.css"
 import avatar from "../../assets/images/avatar.jpeg";
-import { Alert } from 'react-alert';
 import { Component } from "react";
 import SectionSplitter from "../SectionSplitter"
 
@@ -15,6 +14,7 @@ class PostCard extends Component {
     }
 
     componentWillReceiveProps(nextProps) {
+        // To update the card when sorting is changed
         if (nextProps.post !== this.state.post) {
           this.setState({ post: nextProps.post });
         }
@@ -40,7 +40,6 @@ class PostCard extends Component {
     }
 
     async handleUpvoting() {
-        console.log("Upvoting");
         let currentPost = this.state.post;
         currentPost.score += 1
         try{
@@ -54,7 +53,6 @@ class PostCard extends Component {
     }
 
     async handleDownvoting() {
-        console.log("Downvoting");
         let currentPost = this.state.post;
         currentPost.score -= 1
         try{

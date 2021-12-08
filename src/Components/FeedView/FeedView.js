@@ -65,7 +65,6 @@ class FeedView extends Component {
       }
 
     render() {
-        console.log("Rearranging posts");
         const { posts } = this.state;
         return (
             <div className = "feedview-container">
