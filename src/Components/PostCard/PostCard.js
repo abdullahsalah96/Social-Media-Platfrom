@@ -46,17 +46,17 @@ class PostCard extends Component {
 
     async handleLikingPost() {
         // check if already disliked return
-        if (this.state.dislikeButtonState == this.dislikeButtonPressedState) {
+        if (this.state.dislikeButtonState === this.dislikeButtonPressedState) {
             // remove dislike
             this.handleDislikingPost();
             return
         }
         const currentState = this.state.likeButtonState;
-        if (currentState == this.likeButtonPressedState) {
+        if (currentState === this.likeButtonPressedState) {
             // button already pressed so remove like
             this.updatePostScore(this.state.post.score - 1)
             this.setState({ likeButtonState: this.likeButtonNotPressedState});
-        }else if (currentState == this.likeButtonNotPressedState){
+        }else if (currentState === this.likeButtonNotPressedState){
             // like post
             this.updatePostScore(this.state.post.score + 1)
             this.setState({ likeButtonState: this.likeButtonPressedState});
@@ -64,20 +64,20 @@ class PostCard extends Component {
     }
 
     async handleDislikingPost() {
-        if (this.state.likeButtonState == this.likeButtonPressedState) {
+        if (this.state.likeButtonState === this.likeButtonPressedState) {
             // remove like
             this.handleLikingPost();
             return
         }
         const currentState = this.state.dislikeButtonState;
-        if (currentState == this.dislikeButtonPressedState) {
+        if (currentState === this.dislikeButtonPressedState) {
             // button already pressed so remove dislike
             this.updatePostScore(this.state.post.score + 1)
             this.setState({ dislikeButtonState: this.dislikeButtonNotPressedState});
-        }else if (currentState == this.dislikeButtonNotPressedState){
+        }else if (currentState === this.dislikeButtonNotPressedState){
             // dislike post
             // check if score is already 0 return
-            if (this.state.post.score == 0) {
+            if (this.state.post.score === 0) {
                 return
             }
             this.updatePostScore(this.state.post.score - 1)
@@ -101,13 +101,13 @@ class PostCard extends Component {
     async makePostRequest(post) {
         const postData = post;
         try {
-        const res = await fetch("https://worker.abdallaelshikh961661.workers.dev", {
-            mode: "no-cors",
-            method: "post",
-            headers: {
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify(postData),
+            await fetch("https://worker.abdallaelshikh961661.workers.dev", {
+                mode: "no-cors",
+                method: "post",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify(postData),
         });
         } catch (err) {
             throw new Error(err.message);
@@ -120,7 +120,7 @@ class PostCard extends Component {
             <div className = "PostsCards" key={id}>
                 <div className="upper-container">
                     <div className="image-container">
-                        <img src={avatar} height = "90px" width = "90px"/>
+                        <img alt="avatar" src={avatar} height = "90px" width = "90px"/>
                     </div>
                 </div>
                 <div className="username-container">

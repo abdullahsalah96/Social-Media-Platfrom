@@ -1,6 +1,5 @@
 import "./FeedView.css";
 import PostCard from "../PostCard/PostCard"
-import { render } from "@testing-library/react";
 import { Component } from "react";
 
 
@@ -70,13 +69,13 @@ class FeedView extends Component {
             <div className = "feedview-container">
                 <div className="sortion-container">
                     <div className="form-check">
-                        <input className="form-check-input" type="radio" name="flexRadioDefault" checked={this.state.sortBy == "date"} onChange={this.onSortByDateSelected}/>
+                        <input className="form-check-input" type="radio" name="flexRadioDefault" checked={this.state.sortBy === "date"} onChange={this.onSortByDateSelected}/>
                         <label className="form-check-label" htmlFor="flexRadioDefault2">
                             Sort by date
                         </label>
                     </div>
                     <div className="form-check">
-                        <input className="form-check-input" type="radio" name="flexRadioDefault" checked={this.state.sortBy == "score"} onChange={this.onSortByScoreSelected}/>
+                        <input className="form-check-input" type="radio" name="flexRadioDefault" checked={this.state.sortBy === "score"} onChange={this.onSortByScoreSelected}/>
                         <label className="form-check-label" htmlFor="flexRadioDefault1">
                             Sort by score
                         </label>
