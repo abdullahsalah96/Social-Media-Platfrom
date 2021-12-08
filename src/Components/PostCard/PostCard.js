@@ -2,6 +2,7 @@ import "./PostCard.css"
 import avatar from "../../assets/images/avatar.jpeg";
 import { Alert } from 'react-alert';
 import { Component } from "react";
+import SectionSplitter from "../SectionSplitter"
 
 class PostCard extends Component {
 
@@ -9,7 +10,15 @@ class PostCard extends Component {
         super(props);
         this.state = { post:props.post, id: props.objectId};
         this.handleSubmittingComment = this.handleSubmittingComment.bind(this);
+        this.handleUpvoting = this.handleUpvoting.bind(this);
+        this.handleDownvoting = this.handleDownvoting.bind(this);
     }
+
+    componentWillReceiveProps(nextProps) {
+        if (nextProps.post !== this.state.post) {
+          this.setState({ post: nextProps.post });
+        }
+      }
 
     async handleSubmittingComment(event) {
         event.preventDefault()
@@ -20,6 +29,34 @@ class PostCard extends Component {
         }
         currentPost.comments.push(comment);
         // Handle network request
+        try{
+            await this.makePostRequest(currentPost);
+            // successful then update state
+            this.setState({ post: currentPost});
+        } catch(err) {
+            // show error
+            alert("Error: " + err.message);
+        }
+    }
+
+    async handleUpvoting() {
+        console.log("Upvoting");
+        let currentPost = this.state.post;
+        currentPost.score += 1
+        try{
+            await this.makePostRequest(currentPost);
+            // successful then update state
+            this.setState({ post: currentPost});
+        } catch(err) {
+            // show error
+            alert("Error: " + err.message);
+        }
+    }
+
+    async handleDownvoting() {
+        console.log("Downvoting");
+        let currentPost = this.state.post;
+        currentPost.score -= 1
         try{
             await this.makePostRequest(currentPost);
             // successful then update state
@@ -64,9 +101,9 @@ class PostCard extends Component {
                         <p>{post.date}</p>
                     </div>
                     <div className ="voting-container">
+                        <button className="btn"><i className="fa fa-arrow-up fa-2x text-success" onClick={this.handleUpvoting}></i></button>
                         <label>{post.score}</label>
-                        <button className="btn"><i className="fa fa-arrow-up fa-2x text-success" ></i></button>
-                        <button className="btn"><i className="fa fa-arrow-down fa-2x text-danger"></i></button>
+                        <button className="btn"><i className="fa fa-arrow-down fa-2x text-danger" onClick={this.handleDownvoting}></i></button>
                     </div>
                 </div>
                 <div className = "content-container">
@@ -109,15 +146,5 @@ class PostCard extends Component {
         );
     }
 }
-
-const SectionSplitter = ({ color }) => (
-    <hr
-        style={{
-            color: color,
-            backgroundColor: color,
-            height: 0.25
-        }}
-    />
-);
 
 export default PostCard
